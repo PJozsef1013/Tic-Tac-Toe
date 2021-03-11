@@ -1,0 +1,43 @@
+:host{
+    width:100%;
+    height: 100%;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 90px;
+    width: 100%;
+    min-height: 105.44px;
+    flex-basis: 95%;
+    font-size: 75px;
+    color: rgb(12, 36, 80);
+    font-family: fantasy;
+    text-shadow: 5px 3px 10px rgb(12, 36, 80);
+  }
+  .page-chooser {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    flex-basis: 5%;
+    .mat-menu-trigger {
+      font-size: 50px;
+      background-color: white;
+      border: none;
+      cursor: pointer;
+      fa-icon {
+        color: rgb(12, 36, 80);
+      }
+    }
+    .mat-menu-trigger:hover {
+      background-color: lightgray;
+    }
+  }
+}
