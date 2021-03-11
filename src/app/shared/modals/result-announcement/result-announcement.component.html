@@ -1,0 +1,11 @@
+<div class="result-announcement-container">
+  <div class="winner" *ngIf="data">
+    <p>Congratulations player {{ data }}, you won!</p>
+  </div>
+  <div class="tie" *ngIf="!data">
+    <p>It is a draw!</p>
+  </div>
+  <div class="button">
+    <button mat-raised-button color="primary" (click)="close()">Close</button>
+  </div>
+</div>

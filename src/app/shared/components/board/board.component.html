@@ -1,1 +1,9 @@
-<p>board works!</p>
+<div class="board-container">
+  <div class="board">
+    <div *ngFor="let square of board; let idx = index" (click)="makeAStep(idx)">
+      <button [disabled]="square" *ngIf="!square">{{ square }}</button>
+      <button [disabled]="square" *ngIf="square === 'X'"><fa-icon id="x" [icon]="faTimes"></fa-icon></button>
+      <button [disabled]="square" *ngIf="square === 'O'"><fa-icon id="o" [icon]="faCircle"></fa-icon></button>
+    </div>
+  </div>
+</div>

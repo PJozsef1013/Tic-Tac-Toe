@@ -1,1 +1,11 @@
-<p>play-game works!</p>
+<div class="play-game-container">
+  <div class="player">
+    <div class="following-player">Following player: {{ Player }}</div>
+  </div>
+  <app-board *ngIf="squares" [board]="squares" (stepMaked)="makeAStep($event)"></app-board>
+  <div class="buttons" *ngIf="!emptyOrLoadedBoard">
+    <button class="save" mat-raised-button color="primary">Save Game</button>
+    <button class="reset" mat-raised-button color="primary" (click)="resetGame()">Reset Game</button>
+  </div>
+  <div class="no-buttons" *ngIf="emptyOrLoadedBoard"></div>
+</div>

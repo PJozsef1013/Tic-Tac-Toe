@@ -1,0 +1,22 @@
+.result-announcement-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .winner,
+  .tie {
+    p {
+      width: 100%;
+      font-size: 24px;
+      font-weight: bold;
+      color: rgb(12, 36, 80);
+    }
+  }
+  .button {
+    button {
+      color: rgb(12, 36, 80);
+      font-size: 16px;
+      background-color: white;
+    }
+  }
+}
