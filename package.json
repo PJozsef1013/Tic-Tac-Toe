@@ -1,13 +1,19 @@
 {
   "name": "tic-tac-toe",
   "version": "0.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/PJozsef1013/Tic-Tac-Toe.git"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall": "node ./node_modules/husky/lib/installer/bin install",
+    "release": "standard-version"
   },
   "private": true,
   "dependencies": {
@@ -19,7 +25,10 @@
     "@angular/platform-browser": "~11.2.0",
     "@angular/platform-browser-dynamic": "~11.2.0",
     "@angular/router": "~11.2.0",
+    "@commitlint/cli": "^12.0.1",
+    "@commitlint/config-conventional": "^12.0.1",
     "rxjs": "~6.6.0",
+    "standard-version": "^9.1.1",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },
@@ -30,6 +39,7 @@
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "codelyzer": "^6.0.0",
+    "husky": "^4.3.8",
     "jasmine-core": "~3.6.0",
     "jasmine-spec-reporter": "~5.0.0",
     "karma": "~6.1.0",
@@ -37,7 +47,11 @@
     "karma-coverage": "~2.0.3",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
     "protractor": "~7.0.0",
+    "stylelint": "^13.12.0",
+    "stylelint-config-recommended": "^4.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.1.2"
