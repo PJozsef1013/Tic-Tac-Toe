@@ -1,0 +1,15 @@
+<div class="save-game-container">
+  <div class="form">
+    <mat-form-field class="example-form-field">
+      <mat-label>Name of game</mat-label>
+      <input matInput type="text" [(ngModel)]="name" autocomplete="off" maxlength="50" />
+      <button mat-button *ngIf="name" matSuffix mat-icon-button aria-label="Clear" (click)="name = ''">
+        <fa-icon [icon]="faTrash"></fa-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="buttons">
+    <button mat-raised-button color="primary" [disabled]="name.length < 3" (click)="saveGame()">Save</button>
+    <button mat-raised-button color="primary" (click)="backToTheGame()">Back</button>
+  </div>
+</div>

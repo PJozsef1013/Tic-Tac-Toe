@@ -6,10 +6,11 @@ import { ResultAnnouncementModule } from 'src/app/shared/modals/result-announcem
 import { MatButtonModule } from '@angular/material/button';
 import { BoardModule } from 'src/app/shared/components/board/board.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SaveGameModule } from 'src/app/shared/modals/save-game/save-game.module';
 
 @NgModule({
   declarations: [PlayGameComponent],
-  imports: [CommonModule, BoardModule, PlayGameRoutingModule, ResultAnnouncementModule, MatButtonModule, MatDialogModule],
+  imports: [CommonModule, BoardModule, PlayGameRoutingModule, ResultAnnouncementModule, MatButtonModule, MatDialogModule, SaveGameModule],
   exports: [PlayGameComponent]
 })
 export class PlayGameModule {}

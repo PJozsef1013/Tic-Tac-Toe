@@ -3,6 +3,9 @@ import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { ResultAnnouncementComponent } from 'src/app/shared/modals/result-announcement/result-announcement.component';
 import { takeUntil } from 'rxjs/operators';
+import { SaveGameComponent } from 'src/app/shared/modals/save-game/save-game.component';
+import { BoardRequest } from 'src/app/shared/interfaces/board-request';
+import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
   selector: 'app-play-game',
@@ -17,7 +20,7 @@ export class PlayGameComponent implements OnInit, OnDestroy {
   private nextPlayerIsX: boolean;
   private isWinner: boolean;
 
-  constructor(private dialog: MatDialog) {}
+  constructor(private dialog: MatDialog, private apiService: ApiService) {}
 
   ngOnInit(): void {
     this.startNewGame();
@@ -44,6 +47,36 @@ export class PlayGameComponent implements OnInit, OnDestroy {
   resetGame(): void {
     this.startNewGame();
     this.emptyOrLoadedBoard = true;
+  }
+
+  openSaveGameModal(): void {
+    let transformedBoard: number[] = [];
+    for (const square of this.squares) {
+      if (square === 'X') {
+        transformedBoard.push(1);
+      }
+      if (square === 'O') {
+        transformedBoard.push(2);
+      }
+      if (square === '') {
+        transformedBoard.push(0);
+      }
+    }
+    console.log(transformedBoard);
+    const data: BoardRequest = {
+      board: transformedBoard.join(''),
+      name: ''
+    };
+    console.log(data);
+    const dialogRef = this.dialog.open(SaveGameComponent, { height: '150px', width: '300px', disableClose: true, data });
+    dialogRef
+      .afterClosed()
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe((savedGame: BoardRequest) => {
+        if (savedGame) {
+          this.saveGame(savedGame);
+        }
+      });
   }
 
   private startNewGame(): void {
@@ -89,5 +122,24 @@ export class PlayGameComponent implements OnInit, OnDestroy {
         this.resetGame();
         this.isWinner = false;
       });
+  }
+
+  private saveGame(board: BoardRequest): void {
+    this.apiService
+      .saveGame(board)
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe(
+        (response) => {
+          if (response) {
+            console.log(response);
+            this.resetGame();
+          }
+        },
+        (error) => {
+          if (error) {
+            console.log(error.message); //maybe an modal to show the message
+          }
+        }
+      );
   }
 }

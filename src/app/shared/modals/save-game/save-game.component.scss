@@ -1,0 +1,32 @@
+.save-game-container {
+  display: flex;
+  flex-direction: column;
+  .form {
+    .example-form-field {
+      width: 100%;
+      mat-labe {
+        font-size: 20px;
+        color: rgb(12, 36, 80);
+      }
+      input {
+        font-size: 18px;
+        color: rgb(12, 36, 80);
+      }
+      button {
+        fa-icon {
+          color: rgb(12, 36, 80);
+        }
+      }
+    }
+  }
+  .buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    button {
+      font-size: 16px;
+      color: rgb(12, 36, 80);
+      background-color: white;
+    }
+  }
+}
