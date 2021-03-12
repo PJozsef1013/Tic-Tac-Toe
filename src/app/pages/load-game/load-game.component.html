@@ -8,6 +8,8 @@
         mat-button
         *ngIf="filterInput"
         [disabled]="isSearchClicked"
+        [matTooltip]="'Click to search'"
+        matTooltipPosition="above"
         matSuffix
         mat-icon-button
         aria-label="Search"
@@ -15,7 +17,16 @@
       >
         <fa-icon [icon]="faSearch"></fa-icon>
       </button>
-      <button mat-button *ngIf="filterInput" matSuffix mat-icon-button aria-label="Clear" (click)="resetInputField()">
+      <button
+        mat-button
+        *ngIf="filterInput"
+        [matTooltip]="'Click to reset'"
+        matTooltipPosition="above"
+        matSuffix
+        mat-icon-button
+        aria-label="Clear"
+        (click)="resetInputField()"
+      >
         <fa-icon [icon]="faTrash"></fa-icon>
       </button>
     </mat-form-field>
@@ -29,9 +40,12 @@
             <button disabled *ngIf="squares === 'X'"><fa-icon id="x" [icon]="faTimes"></fa-icon></button>
             <button disabled *ngIf="squares === 'O'"><fa-icon id="o" [icon]="faCircle"></fa-icon></button>
           </div>
-          <div class="name">
+          <div class="name-and-delete">
             <button mat-raised-button color="primary">
-              <span class="game-name">{{ board.name }}</span>
+              <span class="name">{{ board.name }}</span>
+            </button>
+            <button class="delete" mat-raised-button color="primary" (click)="openDeleteGameModal(board.id)">
+              <fa-icon [icon]="faTrash" [matTooltip]="'Click to delete'" matTooltipPosition="above"></fa-icon>
             </button>
           </div>
         </div>
@@ -44,9 +58,12 @@
           <button disabled *ngIf="squares === 'X'"><fa-icon id="x" [icon]="faTimes"></fa-icon></button>
           <button disabled *ngIf="squares === 'O'"><fa-icon id="o" [icon]="faCircle"></fa-icon></button>
         </div>
-        <div class="name">
+        <div class="name-and-delete">
           <button mat-raised-button color="primary">
-            <span class="game-name">{{ board.name }}</span>
+            <span class="name">{{ board.name }}</span>
+          </button>
+          <button class="delete" mat-raised-button color="primary" (click)="openDeleteGameModal(board.id)">
+            <fa-icon [icon]="faTrash" [matTooltip]="'Click to delete'" matTooltipPosition="above"></fa-icon>
           </button>
         </div>
       </div>

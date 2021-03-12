@@ -7,10 +7,24 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { DeleteGameModule } from 'src/app/shared/modals/delete-game/delete-game.module';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
   declarations: [LoadGameComponent],
-  imports: [CommonModule, LoadGameRoutingModule, FontAwesomeModule, MatButtonModule, MatInputModule, MatFormFieldModule, FormsModule],
+  imports: [
+    CommonModule,
+    LoadGameRoutingModule,
+    FontAwesomeModule,
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    FormsModule,
+    DeleteGameModule,
+    MatTooltipModule,
+    MatDialogModule
+  ],
   exports: [LoadGameComponent]
 })
 export class LoadGameModule {}

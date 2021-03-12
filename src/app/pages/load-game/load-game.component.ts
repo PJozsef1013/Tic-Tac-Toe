@@ -1,10 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { faSearch, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { BoardResponse } from 'src/app/shared/interfaces/board-response';
 import { SavedGameDatas } from 'src/app/shared/interfaces/saved-game-datas';
+import { DeleteGameComponent } from 'src/app/shared/modals/delete-game/delete-game.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
@@ -26,7 +28,7 @@ export class LoadGameComponent implements OnInit, OnDestroy {
 
   private ngUnSubscribe = new Subject();
 
-  constructor(private apiservice: ApiService) {}
+  constructor(private apiservice: ApiService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.listSavedGames();
@@ -36,15 +38,32 @@ export class LoadGameComponent implements OnInit, OnDestroy {
     this.ngUnSubscribe.next();
     this.ngUnSubscribe.complete();
   }
+
   resetInputField(): void {
     this.filterInput = '';
     this.isFiltered = false;
     this.filteredSavedGame = [];
     this.isSearchClicked = false;
   }
+
   searchGame(): void {
     this.isSearchClicked = true;
     this.filterSavedGames(this.filterInput);
+  }
+
+  openDeleteGameModal(id: number): void {
+    console.log(id);
+    const data: number = id;
+    const dialogref = this.dialog.open(DeleteGameComponent, { height: '140px', width: '475px', disableClose: true, data });
+    dialogref
+      .afterClosed()
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe((idOfDeletableGame) => {
+        if (idOfDeletableGame) {
+          console.log(idOfDeletableGame);
+          this.deleteSavedGame(idOfDeletableGame);
+        }
+      });
   }
 
   private transform(response: BoardResponse[], transformedGameContainer: any[]): void {
@@ -96,6 +115,21 @@ export class LoadGameComponent implements OnInit, OnDestroy {
           }
         },
         (error) => {}
+      );
+  }
+
+  private deleteSavedGame(id: number) {
+    this.apiservice
+      .deleteSavedGame(id)
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe(
+        (response) => {
+          this.listedSavedGames = [];
+          this.listSavedGames();
+        },
+        (error) => {
+          console.log(error.message);
+        }
       );
   }
 }

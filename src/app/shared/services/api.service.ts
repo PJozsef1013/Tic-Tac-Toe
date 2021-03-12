@@ -21,4 +21,9 @@ export class ApiService {
     const url = name ? `${this.backendUrl}/boards?name=${name}` : `${this.backendUrl}/boards`;
     return this.http.get<BoardResponse[]>(url);
   }
+
+  deleteSavedGame(id: number): Observable<string> {
+    const url = `${this.backendUrl}/boards/${id}`;
+    return this.http.delete<string>(url);
+  }
 }
