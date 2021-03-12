@@ -1,1 +1,55 @@
-<p>load-game works!</p>
+<div class="load-game-container">
+  <div class="title">Saved games</div>
+  <div class="input-square">
+    <mat-form-field class="example-form-field">
+      <mat-label>Search by name</mat-label>
+      <input matInput type="text" [(ngModel)]="filterInput" [disabled]="isSearchClicked" autocomplete="off" maxlength="50" />
+      <button
+        mat-button
+        *ngIf="filterInput"
+        [disabled]="isSearchClicked"
+        matSuffix
+        mat-icon-button
+        aria-label="Search"
+        (click)="searchGame()"
+      >
+        <fa-icon [icon]="faSearch"></fa-icon>
+      </button>
+      <button mat-button *ngIf="filterInput" matSuffix mat-icon-button aria-label="Clear" (click)="resetInputField()">
+        <fa-icon [icon]="faTrash"></fa-icon>
+      </button>
+    </mat-form-field>
+  </div>
+  <div class="saved-games">
+    <div class="listed-game-flex" *ngIf="!isFiltered">
+      <div class="listed-games">
+        <div class="boards" *ngFor="let board of listedSavedGames; let idx = index">
+          <div class="squares" *ngFor="let squares of board.board">
+            <button disabled *ngIf="!squares">{{ squares }}</button>
+            <button disabled *ngIf="squares === 'X'"><fa-icon id="x" [icon]="faTimes"></fa-icon></button>
+            <button disabled *ngIf="squares === 'O'"><fa-icon id="o" [icon]="faCircle"></fa-icon></button>
+          </div>
+          <div class="name">
+            <button mat-raised-button color="primary">
+              <span class="game-name">{{ board.name }}</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="filtered-games" *ngIf="isFiltered">
+      <div class="boards" *ngFor="let board of filteredSavedGame; let idx = index">
+        <div class="squares" *ngFor="let squares of board.board">
+          <button disabled *ngIf="!squares">{{ squares }}</button>
+          <button disabled *ngIf="squares === 'X'"><fa-icon id="x" [icon]="faTimes"></fa-icon></button>
+          <button disabled *ngIf="squares === 'O'"><fa-icon id="o" [icon]="faCircle"></fa-icon></button>
+        </div>
+        <div class="name">
+          <button mat-raised-button color="primary">
+            <span class="game-name">{{ board.name }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

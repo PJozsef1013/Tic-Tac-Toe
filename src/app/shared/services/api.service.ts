@@ -16,4 +16,9 @@ export class ApiService {
     const url = `${this.backendUrl}/boards`;
     return this.http.post<BoardResponse>(url, request);
   }
+
+  listSavedGames(name?: string): Observable<BoardResponse[]> {
+    const url = name ? `${this.backendUrl}/boards?name=${name}` : `${this.backendUrl}/boards`;
+    return this.http.get<BoardResponse[]>(url);
+  }
 }

@@ -1,0 +1,214 @@
+:host {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(12, 36, 80);
+  color: white;
+}
+
+.load-game-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 50px;
+    font-size: 70px;
+    text-decoration: underline;
+  }
+  .input-square {
+    display: flex;
+    margin-left: 15px;
+    margin-bottom: 15px;
+    width: 100%;
+    .example-form-field {
+      width: 100%;
+      min-width: 350px;
+      max-width: 350px;
+      mat-label {
+        display: flex;
+        justify-content: center;
+        font-size: 25px;
+        color: white;
+      }
+      input {
+        font-size: 20px;
+        color: white;
+        text-decoration-color: white;
+      }
+      button {
+        color: white;
+        background-color: white;
+        font-size: 25px;
+        border-radius: 5px;
+        margin: 5px;
+        cursor: pointer;
+        fa-icon {
+          color: rgb(12, 36, 80);
+          font-size: 25px;
+        }
+      }
+    }
+  }
+  .saved-games {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    .listed-game-flex {
+      display: flex;
+      height: 100%;
+      .listed-games {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+        grid-row-gap: 20px;
+        grid-column-gap: 10px;
+        width: 100%;
+        height: 100%;
+        .boards {
+          display: grid;
+          grid-template-columns: 50px 50px 50px;
+          grid-template-rows: 50px 50px 50px;
+          grid-row-gap: 10px;
+          grid-column-gap: 10px;
+          width: 100%;
+          height: 100%;
+          justify-content: center;
+          align-self: center;
+          .squares {
+            display: flex;
+            width: 100%;
+            button {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              width: 100%;
+              height: 100%;
+              background-color: white;
+              font-size: 50px;
+              border-radius: 10px;
+              margin: 1.8px;
+              #x {
+                font-size: 30px;
+                color: red;
+              }
+              #o {
+                font-size: 30px;
+                color: blue;
+              }
+            }
+          }
+          .name {
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            min-width: 168px;
+            max-width: 168px;
+            button {
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              min-width: 120px;
+              max-width: 120px;
+              max-height: 35px;
+              text-align: center;
+              background-color: rgb(12, 36, 80);
+              border: 1px solid white;
+              border-radius: 10px;
+              color: white;
+              cursor: pointer;
+              .game-name {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                min-width: 120px;
+                max-width: 120px;
+                font-size: 20px;
+                font-family: fantasy;
+                font-weight: bold;
+              }
+            }
+          }
+        }
+      }
+    }
+    .filtered-games {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+      grid-template-rows: 1fr 1fr 1fr;
+      grid-row-gap: 20px;
+      grid-column-gap: 10px;
+      width: 100%;
+      height: 100%;
+      .boards {
+        display: grid;
+        grid-template-columns: 50px 50px 50px;
+        grid-template-rows: 50px 50px 50px;
+        grid-row-gap: 10px;
+        grid-column-gap: 10px;
+        width: 100%;
+        height: 100%;
+        justify-content: center;
+        align-self: center;
+        .squares {
+          display: flex;
+          width: 100%;
+          button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            font-size: 50px;
+            border-radius: 10px;
+            margin: 1.8px;
+            #x {
+              font-size: 30px;
+              color: red;
+            }
+            #o {
+              font-size: 30px;
+              color: blue;
+            }
+          }
+        }
+        .name {
+          display: flex;
+          flex-direction: row;
+          width: 100%;
+          min-width: 168px;
+          max-width: 168px;
+          button {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-width: 120px;
+            max-width: 120px;
+            max-height: 35px;
+            text-align: center;
+            background-color: rgb(12, 36, 80);
+            border: 1px solid white;
+            border-radius: 10px;
+            color: white;
+            cursor: pointer;
+            .game-name {
+              display: flex;
+              justify-content: center;
+              width: 100%;
+              min-width: 120px;
+              max-width: 120px;
+              font-size: 20px;
+              font-family: fantasy;
+              font-weight: bold;
+            }
+          }
+        }
+      }
+    }
+  }
+}
