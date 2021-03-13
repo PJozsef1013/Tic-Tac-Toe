@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { ResultAnnouncementComponent } from 'src/app/shared/modals/result-announcement/result-announcement.component';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { SaveGameComponent } from 'src/app/shared/modals/save-game/save-game.component';
 import { BoardRequest } from 'src/app/shared/interfaces/board-request';
+import { ResultAnnouncementComponent } from 'src/app/shared/modals/result-announcement/result-announcement.component';
+import { SaveGameComponent } from 'src/app/shared/modals/save-game/save-game.component';
 import { ApiService } from 'src/app/shared/services/api.service';
 
 @Component({
@@ -15,6 +15,8 @@ import { ApiService } from 'src/app/shared/services/api.service';
 export class PlayGameComponent implements OnInit, OnDestroy {
   squares: any[] = [];
   emptyOrLoadedBoard = true;
+  isNewGame: boolean;
+  gameName: string;
 
   private ngUnSubscribe = new Subject();
   private nextPlayerIsX: boolean;
@@ -23,10 +25,21 @@ export class PlayGameComponent implements OnInit, OnDestroy {
   constructor(private dialog: MatDialog, private apiService: ApiService) {}
 
   ngOnInit(): void {
-    this.startNewGame();
+    if (this.squares.length === 0 && !this.apiService.id) {
+      this.startNewGame();
+    }
+
+    if (this.apiService.id) {
+      console.log(this.apiService.id);
+      this.loadSavedGame(this.apiService.id);
+      this.isNewGame = false;
+      this.gameName = this.apiService.name;
+    }
   }
 
   ngOnDestroy(): void {
+    this.apiService.id = null;
+    console.log(this.apiService.id);
     this.ngUnSubscribe.next();
     this.ngUnSubscribe.complete();
   }
@@ -47,6 +60,7 @@ export class PlayGameComponent implements OnInit, OnDestroy {
   resetGame(): void {
     this.startNewGame();
     this.emptyOrLoadedBoard = true;
+    this.gameName = '';
   }
 
   openSaveGameModal(): void {
@@ -82,6 +96,7 @@ export class PlayGameComponent implements OnInit, OnDestroy {
   private startNewGame(): void {
     this.squares = Array(9).fill('');
     this.nextPlayerIsX = true;
+    this.isNewGame = true;
   }
 
   private checkWinner(): void {
@@ -138,6 +153,53 @@ export class PlayGameComponent implements OnInit, OnDestroy {
         (error) => {
           if (error) {
             console.log(error.message); //maybe an modal to show the message
+          }
+        }
+      );
+  }
+
+  private loadSavedGame(id: number): void {
+    this.apiService
+      .loadSavedGame(id)
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe(
+        (response) => {
+          if (response) {
+            console.log(response);
+            let transformedBoard = response.board.split('');
+            console.log(transformedBoard);
+            console.log(this.squares);
+            for (const square of transformedBoard) {
+              if (square === '0') {
+                this.squares.push('');
+              }
+              if (square === '1') {
+                this.squares.push('X');
+              }
+              if (square === '2') {
+                this.squares.push('O');
+              }
+            }
+            console.log(this.squares);
+            let xCounter = 0;
+            let oCounter = 0;
+            for (const item of this.squares) {
+              if (item === 'X') {
+                xCounter++;
+              } else if (item === 'O') {
+                oCounter++;
+              }
+            }
+            if (xCounter === oCounter) {
+              this.nextPlayerIsX = true;
+            } else if (xCounter > oCounter) {
+              this.nextPlayerIsX = false;
+            }
+          }
+        },
+        (error) => {
+          if (error) {
+            console.log(error.message);
           }
         }
       );

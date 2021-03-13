@@ -108,28 +108,34 @@
             width: 100%;
             min-width: 168px;
             max-width: 168px;
-            button {
+            a {
               display: flex;
-              justify-content: center;
-              align-items: center;
+              text-decoration-color: rgb(12, 36, 80);
               min-width: 120px;
               max-width: 120px;
-              max-height: 35px;
-              text-align: center;
-              background-color: rgb(12, 36, 80);
-              border: 1px solid white;
-              border-radius: 10px;
-              color: white;
-              cursor: pointer;
-              .name {
+              button {
                 display: flex;
                 justify-content: center;
-                width: 100%;
+                align-items: center;
                 min-width: 120px;
                 max-width: 120px;
-                font-size: 20px;
-                font-family: fantasy;
-                font-weight: bold;
+                max-height: 35px;
+                text-align: center;
+                background-color: rgb(12, 36, 80);
+                border: 1px solid white;
+                border-radius: 10px;
+                color: white;
+                cursor: pointer;
+                .name {
+                  display: flex;
+                  justify-content: center;
+                  width: 100%;
+                  min-width: 120px;
+                  max-width: 120px;
+                  font-size: 20px;
+                  font-family: fantasy;
+                  font-weight: bold;
+                }
               }
             }
             .delete {
@@ -201,28 +207,34 @@
           width: 100%;
           min-width: 168px;
           max-width: 168px;
-          button {
+          a {
             display: flex;
-            justify-content: center;
-            align-items: center;
+            text-decoration-color: rgb(12, 36, 80);
             min-width: 120px;
             max-width: 120px;
-            max-height: 35px;
-            text-align: center;
-            background-color: rgb(12, 36, 80);
-            border: 1px solid white;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            .name {
+            button {
               display: flex;
               justify-content: center;
-              width: 100%;
+              align-items: center;
               min-width: 120px;
               max-width: 120px;
-              font-size: 20px;
-              font-family: fantasy;
-              font-weight: bold;
+              max-height: 35px;
+              text-align: center;
+              background-color: rgb(12, 36, 80);
+              border: 1px solid white;
+              border-radius: 10px;
+              color: white;
+              cursor: pointer;
+              .name {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                min-width: 120px;
+                max-width: 120px;
+                font-size: 20px;
+                font-family: fantasy;
+                font-weight: bold;
+              }
             }
           }
           .delete {

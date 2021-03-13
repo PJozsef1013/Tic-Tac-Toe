@@ -1,5 +1,6 @@
 <div class="play-game-container">
-  <div class="player">
+  <div class="player-and-game-name">
+    <div class="game-name" *ngIf="gameName">Game name: {{ gameName }}</div>
     <div class="following-player">Following player: {{ Player }}</div>
   </div>
   <app-board *ngIf="squares" [board]="squares" (stepMaked)="makeAStep($event)"></app-board>

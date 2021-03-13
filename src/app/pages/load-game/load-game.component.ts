@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { faSearch, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { BoardResponse } from 'src/app/shared/interfaces/board-response';
 import { SavedGameDatas } from 'src/app/shared/interfaces/saved-game-datas';
 import { DeleteGameComponent } from 'src/app/shared/modals/delete-game/delete-game.component';
@@ -49,6 +49,11 @@ export class LoadGameComponent implements OnInit, OnDestroy {
   searchGame(): void {
     this.isSearchClicked = true;
     this.filterSavedGames(this.filterInput);
+  }
+  shareDatas(id: number, name: string): void {
+    console.log(id, name);
+    this.apiservice.id = id;
+    this.apiservice.name = name;
   }
 
   openDeleteGameModal(id: number): void {
@@ -124,6 +129,7 @@ export class LoadGameComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnSubscribe))
       .subscribe(
         (response) => {
+          this.filteredSavedGame = [];
           this.listedSavedGames = [];
           this.listSavedGames();
         },

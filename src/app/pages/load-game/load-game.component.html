@@ -41,9 +41,17 @@
             <button disabled *ngIf="squares === 'O'"><fa-icon id="o" [icon]="faCircle"></fa-icon></button>
           </div>
           <div class="name-and-delete">
-            <button mat-raised-button color="primary">
-              <span class="name">{{ board.name }}</span>
-            </button>
+            <a routerLink="/playgame">
+              <button
+                mat-raised-button
+                color="primary"
+                [matTooltip]="'Click to load'"
+                matTooltipPosition="above"
+                (click)="shareDatas(board.id, board.name)"
+              >
+                <span class="name">{{ board.name }}</span>
+              </button>
+            </a>
             <button class="delete" mat-raised-button color="primary" (click)="openDeleteGameModal(board.id)">
               <fa-icon [icon]="faTrash" [matTooltip]="'Click to delete'" matTooltipPosition="above"></fa-icon>
             </button>
@@ -59,9 +67,17 @@
           <button disabled *ngIf="squares === 'O'"><fa-icon id="o" [icon]="faCircle"></fa-icon></button>
         </div>
         <div class="name-and-delete">
-          <button mat-raised-button color="primary">
-            <span class="name">{{ board.name }}</span>
-          </button>
+          <a routerLink="/playgame">
+            <button
+              mat-raised-button
+              color="primary"
+              [matTooltip]="'Click to load'"
+              matTooltipPosition="above"
+              (click)="shareDatas(board.id, board.name)"
+            >
+              <span class="name">{{ board.name }}</span>
+            </button>
+          </a>
           <button class="delete" mat-raised-button color="primary" (click)="openDeleteGameModal(board.id)">
             <fa-icon [icon]="faTrash" [matTooltip]="'Click to delete'" matTooltipPosition="above"></fa-icon>
           </button>

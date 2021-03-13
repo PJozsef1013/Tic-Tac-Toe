@@ -8,6 +8,9 @@ import { BoardResponse } from '../interfaces/board-response';
   providedIn: 'root'
 })
 export class ApiService {
+  id: number;
+  name: string;
+
   private backendUrl = 'http://localhost:5000';
 
   constructor(private http: HttpClient) {}
@@ -20,6 +23,11 @@ export class ApiService {
   listSavedGames(name?: string): Observable<BoardResponse[]> {
     const url = name ? `${this.backendUrl}/boards?name=${name}` : `${this.backendUrl}/boards`;
     return this.http.get<BoardResponse[]>(url);
+  }
+
+  loadSavedGame(id: number): Observable<BoardResponse> {
+    const url = `${this.backendUrl}/boards/${id}`;
+    return this.http.get<BoardResponse>(url);
   }
 
   deleteSavedGame(id: number): Observable<string> {
