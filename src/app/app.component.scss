@@ -1,20 +1,29 @@
-.container{
-    display: grid;
-    grid-template-columns: 1fr 6fr;
-    grid-template-rows: 1fr 8fr;
-    width: 100vw;
-    height: 100vh;
-    grid-template-areas:
-        'header header'
-        'content content';
-    .header{
-        display: flex;
-        grid-area: header;
-        width: 100%;
-    }
-    .content{
-        display: flex;
-        grid-area: content;
-        width: 100%;
-    }
+@media screen and (max-width: 800px) {
+  :host {
+    width: 100%;
+  }
+  .container {
+    width: 100% !important;
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 6fr;
+  grid-template-rows: 1fr 8fr;
+  width: 100vw;
+  height: 100vh;
+  grid-template-areas:
+    'header header'
+    'content content';
+  .header {
+    display: flex;
+    grid-area: header;
+    width: 100%;
+  }
+  .content {
+    display: flex;
+    grid-area: content;
+    width: 100%;
+  }
 }

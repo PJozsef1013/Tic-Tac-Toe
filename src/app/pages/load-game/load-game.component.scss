@@ -1,3 +1,52 @@
+@media screen and (max-width: 800px) {
+  .title {
+    margin-bottom: 5px !important;
+    font-size: 45px !important;
+  }
+  .input-square {
+    .example-form-field {
+      min-width: 200px !important;
+      max-width: 200px !important;
+      mat-label {
+        font-size: 18px !important;
+      }
+      button {
+        font-size: 18px !important;
+        fa-icon {
+          font-size: 18px !important;
+        }
+      }
+      input {
+        font-size: 16px !important;
+      }
+    }
+  }
+  .listed-games {
+    grid-template-columns: 1fr 1fr 1fr !important;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr !important;
+    .name {
+      font-size: 18px !important;
+    }
+    .delete {
+      fa-icon {
+        font-size: 18px !important;
+      }
+    }
+  }
+  .filtered-games {
+    grid-template-columns: 1fr 1fr 1fr !important;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr !important;
+    .name {
+      font-size: 18px !important;
+    }
+    .delete {
+      fa-icon {
+        font-size: 18px !important;
+      }
+    }
+  }
+}
+
 :host {
   width: 100%;
   height: 100%;

@@ -1,36 +1,52 @@
 /* You can add global styles to this file, and also import other style files */
 
-body{
-    overflow-x: hidden;
-    margin: 0px;
-    padding: 0px;
+@media screen and (max-width: 800px) {
+  body {
+    width: 685px;
+  }
+  button {
+    font-size: 16px;
+  }
+  .mat-tooltip {
+    font-size: 14px;
+  }
+  #cdk-overlay-0 {
+    right: 5px!important;
+    bottom: 1005px!important;
+  }
 }
 
-.mat-menu-content{
-    padding-top: 0px!important;
-    padding-bottom: 0px!important;
-    a{
-        text-decoration: none;
-        button{
-            color: rgb(12, 36, 80);
-            font-size: 20px;
-            font-family: fantasy;
-        }
-        button:hover{
-            background-color: rgb(12, 36, 80)!important;
-            color: white;
-        }
+body {
+  overflow-x: hidden;
+  margin: 0px;
+  padding: 0px;
+}
+
+.mat-menu-content {
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  a {
+    text-decoration: none;
+    button {
+      color: rgb(12, 36, 80);
+      font-size: 20px;
+      font-family: fantasy;
     }
+    button:hover {
+      background-color: rgb(12, 36, 80) !important;
+      color: white;
+    }
+  }
 }
 
-.mat-form-field-appearance-legacy .mat-form-field-underline{
-  background-color: white!important;
-  background-image: none!important;
-  background-size: auto!important;
+.mat-form-field-appearance-legacy .mat-form-field-underline {
+  background-color: white !important;
+  background-image: none !important;
+  background-size: auto !important;
 }
 
-.mat-tooltip{
-    font-size:18px;
-    background-color: rgb(12, 36, 80)!important;
-    color:white;
+.mat-tooltip {
+  font-size: 18px;
+  background-color: rgb(12, 36, 80) !important;
+  color: white;
 }
