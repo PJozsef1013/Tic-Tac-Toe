@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BoardRequest } from 'src/app/shared/interfaces/board-request';
+import { ModifyGameComponent } from 'src/app/shared/modals/modify-game/modify-game.component';
 import { ResultAnnouncementComponent } from 'src/app/shared/modals/result-announcement/result-announcement.component';
 import { SaveGameComponent } from 'src/app/shared/modals/save-game/save-game.component';
 import { ApiService } from 'src/app/shared/services/api.service';
@@ -65,17 +66,7 @@ export class PlayGameComponent implements OnInit, OnDestroy {
 
   openSaveGameModal(): void {
     let transformedBoard: number[] = [];
-    for (const square of this.squares) {
-      if (square === 'X') {
-        transformedBoard.push(1);
-      }
-      if (square === 'O') {
-        transformedBoard.push(2);
-      }
-      if (square === '') {
-        transformedBoard.push(0);
-      }
-    }
+    this.transform(transformedBoard);
     console.log(transformedBoard);
     const data: BoardRequest = {
       board: transformedBoard.join(''),
@@ -89,6 +80,26 @@ export class PlayGameComponent implements OnInit, OnDestroy {
       .subscribe((savedGame: BoardRequest) => {
         if (savedGame) {
           this.saveGame(savedGame);
+        }
+      });
+  }
+
+  openModifyGameModal(): void {
+    let transformedBoard: number[] = [];
+    this.transform(transformedBoard);
+    console.log(transformedBoard);
+    const data: BoardRequest = {
+      board: transformedBoard.join(''),
+      name: this.gameName
+    };
+    console.log(data);
+    const dialogref = this.dialog.open(ModifyGameComponent, { height: '180px', width: '500px', disableClose: true, data });
+    dialogref
+      .afterClosed()
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe((modifiedGame) => {
+        if (modifiedGame) {
+          this.modifySavedGame(this.apiService.id, modifiedGame);
         }
       });
   }
@@ -127,6 +138,20 @@ export class PlayGameComponent implements OnInit, OnDestroy {
     }
   }
 
+  private transform(transformedBoard: number[]) {
+    for (const square of this.squares) {
+      if (square === 'X') {
+        transformedBoard.push(1);
+      }
+      if (square === 'O') {
+        transformedBoard.push(2);
+      }
+      if (square === '') {
+        transformedBoard.push(0);
+      }
+    }
+  }
+
   private openResultDialog(result?: string): void {
     const data = result;
     const dialogRef = this.dialog.open(ResultAnnouncementComponent, { height: '175px', width: '550px', disableClose: true, data });
@@ -152,7 +177,7 @@ export class PlayGameComponent implements OnInit, OnDestroy {
         },
         (error) => {
           if (error) {
-            console.log(error.message); //maybe an modal to show the message
+            console.log(error.message);
           }
         }
       );
@@ -195,6 +220,25 @@ export class PlayGameComponent implements OnInit, OnDestroy {
             } else if (xCounter > oCounter) {
               this.nextPlayerIsX = false;
             }
+          }
+        },
+        (error) => {
+          if (error) {
+            console.log(error.message);
+          }
+        }
+      );
+  }
+
+  private modifySavedGame(id: number, game: BoardRequest): void {
+    this.apiService
+      .modifySavedGame(id, game)
+      .pipe(takeUntil(this.ngUnSubscribe))
+      .subscribe(
+        (response) => {
+          if (response) {
+            this.resetGame();
+            console.log(response);
           }
         },
         (error) => {

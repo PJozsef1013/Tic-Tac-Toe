@@ -34,4 +34,9 @@ export class ApiService {
     const url = `${this.backendUrl}/boards/${id}`;
     return this.http.delete<string>(url);
   }
+
+  modifySavedGame(id: number, request: BoardRequest): Observable<BoardResponse> {
+    const url = `${this.backendUrl}/boards/${id}`;
+    return this.http.patch<BoardResponse>(url, request);
+  }
 }

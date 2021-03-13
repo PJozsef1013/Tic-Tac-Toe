@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { BoardModule } from 'src/app/shared/components/board/board.module';
+import { ModifyGameModule } from 'src/app/shared/modals/modify-game/modify-game.module';
 import { ResultAnnouncementModule } from 'src/app/shared/modals/result-announcement/result-announcement.module';
 import { SaveGameModule } from 'src/app/shared/modals/save-game/save-game.module';
 
@@ -13,7 +14,7 @@ describe('PlayGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [BoardModule, ResultAnnouncementModule, MatButtonModule, MatDialogModule, SaveGameModule],
+      imports: [BoardModule, ResultAnnouncementModule, MatButtonModule, MatDialogModule, SaveGameModule, ModifyGameModule],
       declarations: [PlayGameComponent]
     }).compileComponents();
   });

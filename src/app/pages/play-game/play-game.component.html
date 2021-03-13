@@ -5,7 +5,8 @@
   </div>
   <app-board *ngIf="squares" [board]="squares" (stepMaked)="makeAStep($event)"></app-board>
   <div class="buttons" *ngIf="!emptyOrLoadedBoard">
-    <button class="save" mat-raised-button color="primary" (click)="openSaveGameModal()">Save Game</button>
+    <button class="save" mat-raised-button color="primary" *ngIf="isNewGame" (click)="openSaveGameModal()">Save Game</button>
+    <button class="modify" mat-raised-button color="primary" *ngIf="!isNewGame" (click)="openModifyGameModal()">Overwrite Game</button>
     <button class="reset" mat-raised-button color="primary" (click)="resetGame()">Reset Game</button>
   </div>
   <div class="no-buttons" *ngIf="emptyOrLoadedBoard"></div>
