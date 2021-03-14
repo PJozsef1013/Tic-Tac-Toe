@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { SaveGameComponent } from './save-game.component';
 
@@ -12,7 +13,7 @@ describe('SaveGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MatDialogModule, MatInputModule, FormsModule, MatButtonModule, FontAwesomeModule],
+      imports: [MatDialogModule, MatInputModule, FormsModule, MatButtonModule, FontAwesomeModule, NoopAnimationsModule],
       providers: [
         {
           provide: MatDialogRef,
