@@ -11,8 +11,8 @@
     font-size: 14px;
   }
   #cdk-overlay-0 {
-    right: 5px!important;
-    bottom: 1005px!important;
+    right: 5px !important;
+    bottom: 1005px !important;
   }
 }
 
@@ -49,4 +49,18 @@ body {
   font-size: 18px;
   background-color: rgb(12, 36, 80) !important;
   color: white;
+}
+
+.my-snackbar {
+  background-color: white;
+  color: rgb(12, 36, 80);
+}
+
+.mat-focus-indicator {
+  color: rgb(12, 36, 80);
+}
+
+.mat-snack-bar-container {
+  min-width: 450px !important;
+  max-width: 450px !important;
 }

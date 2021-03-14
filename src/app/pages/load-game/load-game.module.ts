@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { DeleteGameModule } from 'src/app/shared/modals/delete-game/delete-game.module';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [LoadGameComponent],
@@ -23,7 +24,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     FormsModule,
     DeleteGameModule,
     MatTooltipModule,
-    MatDialogModule
+    MatDialogModule,
+    MatSnackBarModule
   ],
   exports: [LoadGameComponent]
 })

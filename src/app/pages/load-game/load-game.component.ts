@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
 import { faSearch, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Subject } from 'rxjs';
@@ -28,7 +29,7 @@ export class LoadGameComponent implements OnInit, OnDestroy {
 
   private ngUnSubscribe = new Subject();
 
-  constructor(private apiservice: ApiService, private dialog: MatDialog) {}
+  constructor(private apiService: ApiService, private dialog: MatDialog, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.listSavedGames();
@@ -44,6 +45,8 @@ export class LoadGameComponent implements OnInit, OnDestroy {
     this.isFiltered = false;
     this.filteredSavedGame = [];
     this.isSearchClicked = false;
+    this.listedSavedGames = [];
+    this.listSavedGames();
   }
 
   searchGame(): void {
@@ -51,13 +54,11 @@ export class LoadGameComponent implements OnInit, OnDestroy {
     this.filterSavedGames(this.filterInput);
   }
   shareDatas(id: number, name: string): void {
-    console.log(id, name);
-    this.apiservice.id = id;
-    this.apiservice.name = name;
+    this.apiService.id = id;
+    this.apiService.name = name;
   }
 
   openDeleteGameModal(id: number): void {
-    console.log(id);
     const data: number = id;
     const dialogref = this.dialog.open(DeleteGameComponent, { height: '140px', width: '475px', disableClose: true, data });
     dialogref
@@ -65,10 +66,17 @@ export class LoadGameComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.ngUnSubscribe))
       .subscribe((idOfDeletableGame) => {
         if (idOfDeletableGame) {
-          console.log(idOfDeletableGame);
           this.deleteSavedGame(idOfDeletableGame);
         }
       });
+  }
+
+  private openSnackBar(message: string): void {
+    this.snackBar.open(message, 'close', {
+      duration: 7000,
+      verticalPosition: 'top',
+      panelClass: ['my-snackbar']
+    });
   }
 
   private transform(response: BoardResponse[], transformedGameContainer: any[]): void {
@@ -78,7 +86,7 @@ export class LoadGameComponent implements OnInit, OnDestroy {
         name: board.name,
         board: []
       };
-      let transformedBoard = board.board.split('');
+      const transformedBoard = board.board.split('');
       for (const square of transformedBoard) {
         if (square === '0') {
           savedGameDatas.board.push('');
@@ -95,7 +103,7 @@ export class LoadGameComponent implements OnInit, OnDestroy {
   }
 
   private listSavedGames(): void {
-    this.apiservice
+    this.apiService
       .listSavedGames()
       .pipe(takeUntil(this.ngUnSubscribe))
       .subscribe(
@@ -109,7 +117,7 @@ export class LoadGameComponent implements OnInit, OnDestroy {
   }
 
   private filterSavedGames(name: string): void {
-    this.apiservice
+    this.apiService
       .listSavedGames(name)
       .pipe(takeUntil(this.ngUnSubscribe))
       .subscribe(
@@ -123,18 +131,22 @@ export class LoadGameComponent implements OnInit, OnDestroy {
       );
   }
 
-  private deleteSavedGame(id: number) {
-    this.apiservice
+  private deleteSavedGame(id: number): void {
+    this.apiService
       .deleteSavedGame(id)
       .pipe(takeUntil(this.ngUnSubscribe))
       .subscribe(
         (response) => {
-          this.filteredSavedGame = [];
-          this.listedSavedGames = [];
-          this.listSavedGames();
+          if (this.filterInput) {
+            this.filteredSavedGame = [];
+            this.filterSavedGames(this.filterInput);
+          } else if (!this.filterInput) {
+            this.listedSavedGames = [];
+            this.listSavedGames();
+          }
         },
         (error) => {
-          console.log(error.message);
+          this.openSnackBar(error.error);
         }
       );
   }

@@ -1,0 +1,98 @@
+@mixin listAndFilterGames() {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-row-gap: 20px;
+  grid-column-gap: 10px;
+  width: 100%;
+  height: 100%;
+  .boards {
+    display: grid;
+    grid-template-columns: 50px 50px 50px;
+    grid-template-rows: 50px 50px 50px;
+    grid-row-gap: 10px;
+    grid-column-gap: 10px;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-self: center;
+    .squares {
+      display: flex;
+      width: 100%;
+      button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        font-size: 50px;
+        border-radius: 10px;
+        margin: 1.8px;
+        #x {
+          font-size: 30px;
+          color: red;
+        }
+        #o {
+          font-size: 30px;
+          color: blue;
+        }
+      }
+    }
+    .name-and-delete {
+      display: flex;
+      flex-direction: row;
+      width: 100%;
+      min-width: 168px;
+      max-width: 168px;
+      a {
+        display: flex;
+        text-decoration-color: rgb(12, 36, 80);
+        min-width: 120px;
+        max-width: 120px;
+        button {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-width: 120px;
+          max-width: 120px;
+          max-height: 35px;
+          text-align: center;
+          background-color: rgb(12, 36, 80);
+          border: 1px solid white;
+          border-radius: 10px;
+          color: white;
+          cursor: pointer;
+          .name {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            min-width: 120px;
+            max-width: 120px;
+            font-size: 20px;
+            font-family: fantasy;
+            font-weight: bold;
+          }
+        }
+      }
+      .delete {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-width: 40px;
+        max-width: 40px;
+        max-height: 35px;
+        background-color: rgb(12, 36, 80);
+        color: white;
+        border: 1px solid white;
+        border-radius: 10px;
+        margin-left: 8px;
+        cursor: pointer;
+        fa-icon {
+          font-size: 20px;
+        }
+      }
+    }
+  }
+}

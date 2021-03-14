@@ -21,6 +21,7 @@
         mat-button
         *ngIf="filterInput"
         [matTooltip]="'Click to reset'"
+        [disabled]="!isSearchClicked"
         matTooltipPosition="above"
         matSuffix
         mat-icon-button

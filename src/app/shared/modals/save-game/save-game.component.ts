@@ -17,7 +17,6 @@ export class SaveGameComponent {
 
   saveGame(): void {
     this.data.name = this.name;
-    console.log(this.data);
     this.dialogRef.close(this.data);
   }
 

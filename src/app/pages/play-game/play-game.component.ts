@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { BoardRequest } from 'src/app/shared/interfaces/board-request';
@@ -21,17 +22,15 @@ export class PlayGameComponent implements OnInit, OnDestroy {
 
   private ngUnSubscribe = new Subject();
   private nextPlayerIsX: boolean;
-  private isWinner: boolean;
+  private isWinner = false;
 
-  constructor(private dialog: MatDialog, private apiService: ApiService) {}
+  constructor(private dialog: MatDialog, private apiService: ApiService, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     if (this.squares.length === 0 && !this.apiService.id) {
       this.startNewGame();
     }
-
     if (this.apiService.id) {
-      console.log(this.apiService.id);
       this.loadSavedGame(this.apiService.id);
       this.isNewGame = false;
       this.gameName = this.apiService.name;
@@ -40,7 +39,6 @@ export class PlayGameComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.apiService.id = null;
-    console.log(this.apiService.id);
     this.ngUnSubscribe.next();
     this.ngUnSubscribe.complete();
   }
@@ -65,14 +63,12 @@ export class PlayGameComponent implements OnInit, OnDestroy {
   }
 
   openSaveGameModal(): void {
-    let transformedBoard: number[] = [];
+    const transformedBoard: number[] = [];
     this.transform(transformedBoard);
-    console.log(transformedBoard);
     const data: BoardRequest = {
       board: transformedBoard.join(''),
       name: ''
     };
-    console.log(data);
     const dialogRef = this.dialog.open(SaveGameComponent, { height: '150px', width: '300px', disableClose: true, data });
     dialogRef
       .afterClosed()
@@ -85,14 +81,12 @@ export class PlayGameComponent implements OnInit, OnDestroy {
   }
 
   openModifyGameModal(): void {
-    let transformedBoard: number[] = [];
+    const transformedBoard: number[] = [];
     this.transform(transformedBoard);
-    console.log(transformedBoard);
     const data: BoardRequest = {
       board: transformedBoard.join(''),
       name: this.gameName
     };
-    console.log(data);
     const dialogref = this.dialog.open(ModifyGameComponent, { height: '180px', width: '500px', disableClose: true, data });
     dialogref
       .afterClosed()
@@ -138,7 +132,7 @@ export class PlayGameComponent implements OnInit, OnDestroy {
     }
   }
 
-  private transform(transformedBoard: number[]) {
+  private transform(transformedBoard: number[]): void {
     for (const square of this.squares) {
       if (square === 'X') {
         transformedBoard.push(1);
@@ -150,6 +144,14 @@ export class PlayGameComponent implements OnInit, OnDestroy {
         transformedBoard.push(0);
       }
     }
+  }
+
+  private openSnackBar(message: string): void {
+    this.snackBar.open(message, 'close', {
+      duration: 7000,
+      verticalPosition: 'top',
+      panelClass: ['my-snackbar']
+    });
   }
 
   private openResultDialog(result?: string): void {
@@ -171,13 +173,12 @@ export class PlayGameComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           if (response) {
-            console.log(response);
             this.resetGame();
           }
         },
         (error) => {
           if (error) {
-            console.log(error.message);
+            this.openSnackBar(error.error);
           }
         }
       );
@@ -190,10 +191,7 @@ export class PlayGameComponent implements OnInit, OnDestroy {
       .subscribe(
         (response) => {
           if (response) {
-            console.log(response);
-            let transformedBoard = response.board.split('');
-            console.log(transformedBoard);
-            console.log(this.squares);
+            const transformedBoard = response.board.split('');
             for (const square of transformedBoard) {
               if (square === '0') {
                 this.squares.push('');
@@ -205,7 +203,6 @@ export class PlayGameComponent implements OnInit, OnDestroy {
                 this.squares.push('O');
               }
             }
-            console.log(this.squares);
             let xCounter = 0;
             let oCounter = 0;
             for (const item of this.squares) {
@@ -224,7 +221,7 @@ export class PlayGameComponent implements OnInit, OnDestroy {
         },
         (error) => {
           if (error) {
-            console.log(error.message);
+            this.openSnackBar(error.error);
           }
         }
       );
@@ -238,12 +235,11 @@ export class PlayGameComponent implements OnInit, OnDestroy {
         (response) => {
           if (response) {
             this.resetGame();
-            console.log(response);
           }
         },
         (error) => {
           if (error) {
-            console.log(error.message);
+            this.openSnackBar(error.error);
           }
         }
       );

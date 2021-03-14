@@ -8,6 +8,7 @@ import { BoardModule } from 'src/app/shared/components/board/board.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { SaveGameModule } from 'src/app/shared/modals/save-game/save-game.module';
 import { ModifyGameModule } from 'src/app/shared/modals/modify-game/modify-game.module';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [PlayGameComponent],
@@ -19,7 +20,8 @@ import { ModifyGameModule } from 'src/app/shared/modals/modify-game/modify-game.
     MatButtonModule,
     MatDialogModule,
     SaveGameModule,
-    ModifyGameModule
+    ModifyGameModule,
+    MatSnackBarModule
   ],
   exports: [PlayGameComponent]
 })
